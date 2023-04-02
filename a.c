@@ -13,62 +13,62 @@ typedef char SElemType;
 typedef int ElemType;
 
 typedef struct{
-    SElemType *base;     //¡·¡·¡·Õ»µ×Ö¸Õë
-    SElemType *top;      //¡·¡·¡·Õ»¶¥Ö¸Õë
-    int stacksize;       //Õ»¿ÉÓÃµÄ×î´óÈİÁ¿
+    SElemType *base;     //ã€‹ã€‹ã€‹æ ˆåº•æŒ‡é’ˆ
+    SElemType *top;      //ã€‹ã€‹ã€‹æ ˆé¡¶æŒ‡é’ˆ
+    int stacksize;       //æ ˆå¯ç”¨çš„æœ€å¤§å®¹é‡
 }SqStack;
 
-//¡·¡·¡·1.Õ»µÄ³õÊ¼»¯(InitStack)
+//ã€‹ã€‹ã€‹1.æ ˆçš„åˆå§‹åŒ–(InitStack)
 Status InitStack(SqStack* S){
-    //¢ÙÎªË³ĞòÕ»·ÖÅäÒ»¸ö×î´óÈİÁ¿MAXSIZEµÄÊı×é
+    //â‘ ä¸ºé¡ºåºæ ˆåˆ†é…ä¸€ä¸ªæœ€å¤§å®¹é‡MAXSIZEçš„æ•°ç»„
     S -> base = (SqStack*)malloc(sizeof(SElemType) * MAXSIZE);
-    //¢ÚÅĞ¶ÏÊÇ·ñ·ÖÅä³É¹¦
+    //â‘¡åˆ¤æ–­æ˜¯å¦åˆ†é…æˆåŠŸ
     if(!S->base)
         strerror(errno);
-    //¢Ûtop³õÊ¼Îªbase£¬¿ÕÕ»
+    //â‘¢topåˆå§‹ä¸ºbaseï¼Œç©ºæ ˆ
     S -> top = S -> base;
-    //¢ÜstacksizeÖÃÎª×î´óÈİÁ¿MAXSIZE
+    //â‘£stacksizeç½®ä¸ºæœ€å¤§å®¹é‡MAXSIZE
     S -> stacksize = MAXSIZE;
     return OK;
 }
 
-//¡·¡·¡·2.ÈëÕ»(Push)
+//ã€‹ã€‹ã€‹2.å…¥æ ˆ(Push)
 Status Push(SqStack* S,SElemType e){
-    //¢ÙÅĞ¶ÏÊÇ·ñÕ»Âú£¬ÈôÂú·µ»ØERROR
+    //â‘ åˆ¤æ–­æ˜¯å¦æ ˆæ»¡ï¼Œè‹¥æ»¡è¿”å›ERROR
     if(S -> top - S -> base == S -> stacksize){
-        printf("Õ»Âú");
+        printf("æ ˆæ»¡");
         return ERROR;
     }
-    //¢Ú½«ĞÂÔªËØÑ¹ÈëÕ»¶¥£¬Õ»¶¥Ö¸Õë¼Ó1
+    //â‘¡å°†æ–°å…ƒç´ å‹å…¥æ ˆé¡¶ï¼Œæ ˆé¡¶æŒ‡é’ˆåŠ 1
     *(S -> top++) = e;
     return OK;
 }
 
-//¡·¡·¡·3.³öÕ»(Pop)
+//ã€‹ã€‹ã€‹3.å‡ºæ ˆ(Pop)
 char Pop(SqStack* S,SElemType* e){
-    //¢ÙÅĞ¶ÏÕ»¶¥ÊÇ·ñÎª¿Õ£¬Èô¿ÕÔò·µ»ØERROR
+    //â‘ åˆ¤æ–­æ ˆé¡¶æ˜¯å¦ä¸ºç©ºï¼Œè‹¥ç©ºåˆ™è¿”å›ERROR
     if(S -> top == S -> base){
-        printf("Õ»¿Õ");
+        printf("æ ˆç©º");
         return ERROR;
     }
-    //¢ÚÕ»¶¥Ö¸Õë¼õ1£¬Õ»¶¥ÔªËØ³öÕ»
+    //â‘¡æ ˆé¡¶æŒ‡é’ˆå‡1ï¼Œæ ˆé¡¶å…ƒç´ å‡ºæ ˆ
     *e = *(--(S -> top));
     return e;
 }
 
-//¡·¡·¡·4.È¡Õ»¶¥ÔªËØ(GetTop)
+//ã€‹ã€‹ã€‹4.å–æ ˆé¡¶å…ƒç´ (GetTop)
 Status GetTop(SqStack* S){
     if(S -> top == S -> base){
-        printf("Õ»¿Õ");
+        printf("æ ˆç©º");
         return ERROR;
     }
     return *(S -> top--);
 }
 
-//¡·¡·¡·Õ»µÄÆäËû²Ù×÷
+//ã€‹ã€‹ã€‹æ ˆçš„å…¶ä»–æ“ä½œ
 Status IsEmpty(SqStack* S){
     if(S -> base == S -> top){
-        printf("¿ÕÕ»");
+        printf("ç©ºæ ˆ");
         return TRUE;
     }
     return ERROR;
@@ -76,13 +76,13 @@ Status IsEmpty(SqStack* S){
 
 Status IsFull(SqStack* S){
     if(S -> top - S -> base == S -> stacksize){
-        printf("Õ»Âú");
+        printf("æ ˆæ»¡");
         return OK;
     }
     return ERROR;
 }
 
-//¡·¡·¡·²âÊÔ³ÌĞò->>>(³É¹¦)
+//ã€‹ã€‹ã€‹æµ‹è¯•ç¨‹åº->>>(æˆåŠŸ)
 /*int main(){
     SqStack S;
     InitStack(&S);
@@ -98,52 +98,52 @@ Status IsFull(SqStack* S){
     }
 }*/
 
-//¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·Á´Õ»µÄ±íÊ¾ºÍÊµÏÖ¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶
+//ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹é“¾æ ˆçš„è¡¨ç¤ºå’Œå®ç°ã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Š
 
-//¡·¡·¡·0.Á´Õ»µÄ´æ´¢½á¹¹
+//ã€‹ã€‹ã€‹0.é“¾æ ˆçš„å­˜å‚¨ç»“æ„
 typedef struct StackNode{
     ElemType data;
     struct StackNode *next;
 }StackNode,*LinkStack;
 
-//¡·¡·¡·1.³õÊ¼»¯(InitLStack)
+//ã€‹ã€‹ã€‹1.åˆå§‹åŒ–(InitLStack)
 Status InitLStack1(LinkStack S){
     S = NULL;
     return OK;
 }
 
-//¡·¡·¡·2.ÈëÕ»(Push)
-Status Push1(LinkStack S,SElemType e){
-    //¡·¡·¡·Éú³ÉĞÂ½Úµã
+//ã€‹ã€‹ã€‹2.å…¥æ ˆ(Push)
+Status Push1(LinkStack* S,ElemType e){
+    //ã€‹ã€‹ã€‹ç”Ÿæˆæ–°èŠ‚ç‚¹
     LinkStack p = (LinkStack)malloc(sizeof(StackNode));
     p -> data = e;
-    p -> next = S;
-    S = p;
+    p -> next = (*S);
+    (*S) = p;
     return OK;
 }
 
-//¡·¡·¡·3.³öÕ»(Pop)
-Status Pop1(LinkStack S,SElemType e){
-    //¡·¡·¡·ÅĞ¶ÏÊÇ·ñÎª¿ÕÕ»
+//ã€‹ã€‹ã€‹3.å‡ºæ ˆ(Pop)
+Status Pop1(LinkStack* S,ElemType* e){
+    //ã€‹ã€‹ã€‹åˆ¤æ–­æ˜¯å¦ä¸ºç©ºæ ˆ
     if(S == NULL){
-        printf("Õ»¿Õ");
+        printf("æ ˆç©º");
         return ERROR;
     }
-    //¡·¡·¡·´´½¨ĞÂ½Úµã
-    LinkStack p = S;
-    //¡·¡·¡·½«Öµ¸³¸øe
-    e = S -> data;
-    //¡·¡·¡·½«µ±Ç°Õ»¶¥½Úµã¸³¸øp£¬ÒÔ±ãÊÍ·Å
-    S = S -> next;
+    //ã€‹ã€‹ã€‹åˆ›å»ºæ–°èŠ‚ç‚¹
+    LinkStack p = (*S);
+    //ã€‹ã€‹ã€‹å°†å€¼èµ‹ç»™e
+    *e = (*S) -> data;
+    //ã€‹ã€‹ã€‹å°†å½“å‰æ ˆé¡¶èŠ‚ç‚¹èµ‹ç»™pï¼Œä»¥ä¾¿é‡Šæ”¾
+    (*S) = (*S) -> next;
     free(p);
     return OK;
 }
 
-//¡·¡·¡·4.È¡Õ»¶¥ÔªËØ
-SElemType GetTop1(LinkStack S){
-    //¡·¡·¡·ÅĞ¶ÏÊÇ·ñÎª¿ÕÕ»
+//ã€‹ã€‹ã€‹4.å–æ ˆé¡¶å…ƒç´ 
+ElemType GetTop1(LinkStack S){
+    //ã€‹ã€‹ã€‹åˆ¤æ–­æ˜¯å¦ä¸ºç©ºæ ˆ
     if(S == NULL){
-        printf("¿ÕÕ»");
+        printf("ç©ºæ ˆ");
         return ERROR;
     }
     return S -> data;
@@ -155,18 +155,88 @@ Status Empty1(LinkStack* S){
     return ERROR;
 }
 
+//ã€‹ã€‹ã€‹è°ƒè¯•ç¨‹åº>>>>>æˆåŠŸ
+/*
 int main(){
     LinkStack S;
-    InitLStack1(S);
-    Push1(S,'A');
-    Push1(S,'B');
-    Push1(S,'C');
-    Push1(S,'D');
-    Push1(S,'E');
+    InitLStack1(&S);
+    Push1(&S,'A');
+    Push1(&S,'B');
+    Push1(&S,'C');
+    Push1(&S,'D');
+    Push1(&S,'E');
     while(!Empty1(&S)){
-        SElemType e;
-        Pop1(S,&e);
-        printf("%c ",e);
+        ElemType e;
+        Pop1(&S,&e);
+        printf("%d ",e);
     }
     return OK;
+}*/
+
+//ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹é˜Ÿåˆ—çš„åˆ›å»ºå’Œå®ç°ã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Šã€Š
+//ã€‹ã€‹ã€‹0.é˜Ÿåˆ—çš„åˆ›å»º
+typedef struct{
+    QElemType *base;
+    int front;
+    int rear;
+}SqQueue;
+
+//ã€‹ã€‹ã€‹1.åˆå§‹åŒ–
+Status InitQueue(SqQueue* Q){
+    //ã€‹ã€‹ã€‹ä¸ºé˜Ÿåˆ—åˆ†é…åˆå§‹ç©ºé—´
+    Q->base = (QElemType *)malloc(sizeof(QElemType) * MAXSIZE);
+    //ã€‹ã€‹ã€‹å­˜å‚¨åˆ†é…å¤±è´¥
+    if(Q->base == NULL){
+        printf("åˆ›å»ºå¤±è´¥");
+        return ERROR;
+    }
+    //ã€‹ã€‹ã€‹å¤´æŒ‡é’ˆå’Œå°¾æŒ‡é’ˆèµ‹0
+    Q->front = 0;
+    Q->rear = Q->front;
+    return OK;
+}
+
+//ã€‹ã€‹ã€‹2.æ±‚é˜Ÿåˆ—é•¿åº¦(QueueLength)
+int QueueLength(SqQueue Q){
+    return(Q.rear - Q.front + MAXSIZE) % MAXSIZE;
+    return OK;
+}
+
+//ã€‹ã€‹ã€‹3.å…¥é˜Ÿ(EnQueue)
+Status EnQueue(SqQueue* Q,QElemType e){
+    if((Q->rear + 1) % MAXSIZE == Q->front){
+        printf("é˜Ÿåˆ—å·²æ»¡");
+        return ERROR;
+    }
+    Q->base[Q->rear] = e;
+    Q->rear = (Q->rear + 1) % MAXSIZE;
+    return OK;
+}
+
+//ã€‹ã€‹ã€‹4.å‡ºé˜Ÿ(DeQueue)
+Status DeQueue(SqQueue* Q,QElemType* e){
+    if(Q->front == Q->rear){
+        printf("ç©ºé˜Ÿåˆ—");
+        return ERROR;
+    }
+    *e = Q->base[Q->front];
+    Q->front = (Q->front + 1) % MAXSIZE;
+    return OK;
+}
+
+//ã€‹ã€‹ã€‹5.å–é˜Ÿå¤´å…ƒç´ (GetHead)
+QElemType GetHead(SqQueue Q,QElemType e){
+    if(Q.front == Q.rear){
+        printf("ç©ºé˜Ÿåˆ—");
+        return ERROR;
+    }
+    Q.base[Q.front] = e;
+}
+
+Status IsEmpty(SqQueue Q){
+    if(Q.front == Q.rear){
+        printf("ç©ºé˜Ÿåˆ—");
+        return OK;
+    }
+    return ERROR;
 }
